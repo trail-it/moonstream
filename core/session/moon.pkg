@@ -1,7 +1,3 @@
 import {
   "trail-it/moonstream",
 }
-
-import {
-  "moonbitlang/core/encoding/utf8",
-} for "test"
