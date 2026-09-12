@@ -47,7 +47,9 @@ fn expect_completed(
         "期待 Completed，实际 Incomplete(pos=\{pos}, expected=\{expected})",
       )
     @moonstream.FinishResult::Aborted(reason~) =>
-      fail("期待 Completed，实际 Aborted(reason=\{to_repr(reason)})")
+      fail(
+        "期待 Completed，实际 Aborted(reason=\{Debug::to_repr(reason)})",
+      )
   }
 }
 

@@ -20,5 +20,5 @@ preferred_target = "wasm-gc"
 description = "Offline wasm-gc demo: incremental tool-call argument rendering."
 
 import {
-  "trail-it/moonstream@0.1.0",
+  "trail-it/moonstream@0.1.1",
 }

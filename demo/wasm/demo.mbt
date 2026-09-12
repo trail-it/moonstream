@@ -169,7 +169,7 @@ pub fn demo_step() -> Int {
   try step_inner() catch {
     err => {
       demo.status = "error"
-      demo.detail = "\{to_repr(err)}"
+      demo.detail = "\{Debug::to_repr(err)}"
       refresh_buffer()
       -1
     }
@@ -219,7 +219,7 @@ fn step_inner() -> Int raise {
       }
       @moonstream.FinishResult::Aborted(reason~) => {
         demo.status = "aborted"
-        demo.detail = "\{to_repr(reason)}"
+        demo.detail = "\{Debug::to_repr(reason)}"
       }
     }
   }
@@ -236,7 +236,7 @@ pub fn demo_truncate() -> Unit {
   try truncate_inner() catch {
     err => {
       demo.status = "error"
-      demo.detail = "\{to_repr(err)}"
+      demo.detail = "\{Debug::to_repr(err)}"
     }
   } noraise {
     _ => ()
@@ -261,7 +261,7 @@ fn truncate_inner() -> Unit raise {
     }
     @moonstream.FinishResult::Aborted(reason~) => {
       demo.status = "aborted"
-      demo.detail = "\{to_repr(reason)}"
+      demo.detail = "\{Debug::to_repr(reason)}"
     }
   }
 }

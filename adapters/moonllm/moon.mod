@@ -5,7 +5,7 @@
 // async 版本冲突（见 README 的"版本与后端约束"）。
 name = "trail-it/moonllm_adapter"
 
-version = "0.1.0"
+version = "0.1.1"
 
 readme = "README.md"
 
@@ -20,6 +20,6 @@ preferred_target = "native"
 description = "Adapter mapping DC-Z-lab/moonllm streaming chunks onto MoonStream sessions."
 
 import {
-  "trail-it/moonstream@0.1.0",
+  "trail-it/moonstream@0.1.1",
   "DC-Z-lab/moonllm@0.1.0",
 }

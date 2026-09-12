@@ -18,5 +18,5 @@ preferred_target = "native"
 description = "Minimal consumer example for MoonStream."
 
 import {
-  "trail-it/moonstream@0.1.0",
+  "trail-it/moonstream@0.1.1",
 }

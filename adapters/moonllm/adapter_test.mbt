@@ -39,7 +39,8 @@ fn document_of(result : @moonstream.FinishResult) -> String {
     @moonstream.FinishResult::Completed(doc) => doc.to_string()
     @moonstream.FinishResult::Incomplete(pos~, expected~) =>
       "<incomplete:\{pos}:\{expected}>"
-    @moonstream.FinishResult::Aborted(reason~) => "<aborted:\{to_repr(reason)}>"
+    @moonstream.FinishResult::Aborted(reason~) =>
+      "<aborted:\{Debug::to_repr(reason)}>"
   }
 }
 

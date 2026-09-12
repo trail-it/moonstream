@@ -8,7 +8,7 @@
 ///|
 fn main {
   try run() catch {
-    err => println("解析失败: \{to_repr(err)}")
+    err => println("解析失败: \{Debug::to_repr(err)}")
   } noraise {
     _ => ()
   }

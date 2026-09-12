@@ -87,7 +87,7 @@ fn print_result(result : @moonstream.FinishResult) -> Unit {
     @moonstream.FinishResult::Incomplete(pos~, expected~) =>
       println("结果: Incomplete（位置 \{pos}，期待 \{expected}）")
     @moonstream.FinishResult::Aborted(reason~) =>
-      println("结果: Aborted（\{to_repr(reason)}）")
+      println("结果: Aborted（\{Debug::to_repr(reason)}）")
   }
 }
 
@@ -113,7 +113,7 @@ fn main {
     match fed {
       Ok(events) => print_events(events)
       Err(err) => {
-        println("解析错误: \{to_repr(err)}")
+        println("解析错误: \{Debug::to_repr(err)}")
         return
       }
     }
@@ -128,6 +128,6 @@ fn main {
       }
       print_result(result)
     }
-    Err(err) => println("解析错误: \{to_repr(err)}")
+    Err(err) => println("解析错误: \{Debug::to_repr(err)}")
   }
 }

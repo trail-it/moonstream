@@ -4,7 +4,7 @@
 // `StreamEvent::ToolCallDelta(input_delta)` 直接接进 MoonStream 会话。
 name = "trail-it/mizchi_llm_adapter"
 
-version = "0.1.0"
+version = "0.1.1"
 
 readme = "README.md"
 
@@ -19,6 +19,6 @@ preferred_target = "wasm-gc"
 description = "Adapter mapping mizchi/llm streaming events onto MoonStream sessions."
 
 import {
-  "trail-it/moonstream@0.1.0",
+  "trail-it/moonstream@0.1.1",
   "mizchi/llm@0.3.1",
 }

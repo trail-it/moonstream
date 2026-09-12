@@ -3,7 +3,7 @@
 // See https://docs.moonbitlang.com/en/latest/toolchain/moon/module.html
 name = "trail-it/moonstream"
 
-version = "0.1.0"
+version = "0.1.1"
 
 readme = "README.md"
 
