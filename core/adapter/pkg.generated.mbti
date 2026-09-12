@@ -1,0 +1,34 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "trail-it/moonstream/adapter"
+
+import {
+  "moonbitlang/core/debug",
+  "trail-it/moonstream",
+  "trail-it/moonstream/session",
+}
+
+// Values
+pub fn finish_open(@session.Session, @moonstream.EndReason) -> Array[CallUpdate]
+
+// Errors
+
+// Types and methods
+pub(all) enum AdapterOutcome {
+  Ignored
+  Updates(updates~ : Array[CallUpdate])
+} derive(Eq, ToJson, @debug.Debug)
+pub fn AdapterOutcome::updates(Self) -> Array[CallUpdate]
+
+pub(all) struct CallUpdate {
+  key : @session.CallKey
+  events : Array[@moonstream.Event]
+  result : @moonstream.FinishResult?
+  failure : @session.SessionError?
+} derive(Eq, ToJson, @debug.Debug)
+pub fn CallUpdate::delta(@session.CallKey, Array[@moonstream.Event]) -> Self
+pub fn CallUpdate::finished(@session.CallKey, Array[@moonstream.Event], @moonstream.FinishResult) -> Self
+
+// Type aliases
+
+// Traits
+

@@ -1,0 +1,31 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "trail-it/moonllm_adapter"
+
+import {
+  "DC-Z-lab/moonllm",
+  "trail-it/moonstream",
+  "trail-it/moonstream/adapter",
+  "trail-it/moonstream/session",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub struct MoonllmAdapter {
+  session : @session.Session
+  response_id : String
+  choice : Int
+}
+pub fn MoonllmAdapter::apply(Self, @moonllm.StreamChunk) -> @adapter.AdapterOutcome raise @session.SessionError
+pub fn MoonllmAdapter::finish_all(Self, reason~ : @moonstream.EndReason) -> Array[@adapter.CallUpdate]
+pub fn MoonllmAdapter::finish_call(Self, Int, reason~ : @moonstream.EndReason) -> (Array[@moonstream.Event], @moonstream.FinishResult) raise @session.SessionError
+pub fn MoonllmAdapter::key(Self, Int) -> @session.CallKey
+pub fn MoonllmAdapter::new(response_id? : String, choice? : Int) -> Self raise @session.SessionError
+pub fn MoonllmAdapter::session(Self) -> @session.Session
+
+// Type aliases
+
+// Traits
+

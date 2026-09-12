@@ -1,0 +1,12 @@
+import {
+  "moonbitlang/core/encoding/utf8",
+  "moonbitlang/core/json",
+  "moonbitlang/core/string" @str,
+}
+
+// README.mbt.md 里演示了 preview 与 session 的用法，因此测试模式需要它们
+import {
+  "trail-it/moonstream/preview",
+  "trail-it/moonstream/session",
+  "moonbitlang/core/encoding/utf8",
+} for "test"

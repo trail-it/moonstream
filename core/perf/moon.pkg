@@ -1,0 +1,8 @@
+import {
+  "trail-it/moonstream",
+  "trail-it/moonstream/preview",
+  "trail-it/moonstream/session",
+  "moonbitlang/core/bench",
+  "moonbitlang/core/encoding/utf8",
+  "moonbitlang/core/json",
+}

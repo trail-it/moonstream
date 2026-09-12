@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Set up MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> $GITHUB_PATH
+
+      - name: Show toolchain version
+        run: moon version --all
+
+      # 工作区上下文：主库 + 三个 SDK 适配模块 + wasm-gc 演示
+      - name: Check all backends with warnings denied
+        run: moon check --deny-warn --target all
+
+      - name: Test wasm-gc
+        run: moon test --target wasm-gc
+
+      - name: Test js
+        run: moon test --target js
+
+      - name: Test native
+        run: moon test --target native
+
+      - name: Build all supported backends
+        run: moon build --target all
+
+      - name: Run the minimal consumer example
+        run: moon run --target native examples/consumer
+
+      - name: Run offline replay tool
+        run: moon -C core run --target native cmd/replay
+
+      - name: Build the wasm-gc demo
+        run: node demo/build.mjs
+
+      - name: End-to-end check of the demo
+        run: node demo/check.mjs
+
+      - name: Package the library (adapters must stay out)
+        run: |
+          moon -C core package
+          moon -C core package --list > /tmp/packaged.txt
+          ! grep -q adapters /tmp/packaged.txt
+
+      - name: Format check
+        run: |
+          moon fmt
+          git diff --exit-code
+
+      - name: Generated interface check
+        run: |
+          moon info
+          git diff --exit-code

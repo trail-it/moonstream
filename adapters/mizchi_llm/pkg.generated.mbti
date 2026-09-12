@@ -1,0 +1,31 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "trail-it/mizchi_llm_adapter"
+
+import {
+  "mizchi/llm",
+  "trail-it/moonstream",
+  "trail-it/moonstream/adapter",
+  "trail-it/moonstream/session",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub struct MizchiLlmAdapter {
+  session : @session.Session
+  response_id : String
+  ids : Array[String]
+}
+pub fn MizchiLlmAdapter::apply(Self, @llm.StreamEvent) -> @adapter.AdapterOutcome raise @session.SessionError
+pub fn MizchiLlmAdapter::finish_slot(Self, Int, reason~ : @moonstream.EndReason) -> (Array[@moonstream.Event], @moonstream.FinishResult) raise @session.SessionError
+pub fn MizchiLlmAdapter::key(Self, Int) -> @session.CallKey
+pub fn MizchiLlmAdapter::new(response_id? : String) -> Self raise @session.SessionError
+pub fn MizchiLlmAdapter::session(Self) -> @session.Session
+pub fn MizchiLlmAdapter::slot(Self, String) -> Int
+
+// Type aliases
+
+// Traits
+

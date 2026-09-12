@@ -1,0 +1,29 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "trail-it/llm_mb_adapter"
+
+import {
+  "marianoguerra/llm",
+  "trail-it/moonstream",
+  "trail-it/moonstream/adapter",
+  "trail-it/moonstream/session",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub struct LlmMbAdapter {
+  session : @session.Session
+  response_id : String
+}
+pub fn LlmMbAdapter::apply(Self, @llm.StreamEvent) -> @adapter.AdapterOutcome raise @session.SessionError
+pub fn LlmMbAdapter::finish_call(Self, Int, reason~ : @moonstream.EndReason) -> (Array[@moonstream.Event], @moonstream.FinishResult) raise @session.SessionError
+pub fn LlmMbAdapter::key(Self, Int) -> @session.CallKey
+pub fn LlmMbAdapter::new(response_id? : String) -> Self raise @session.SessionError
+pub fn LlmMbAdapter::session(Self) -> @session.Session
+
+// Type aliases
+
+// Traits
+

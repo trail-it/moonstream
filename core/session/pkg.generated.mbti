@@ -1,0 +1,51 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "trail-it/moonstream/session"
+
+import {
+  "moonbitlang/core/debug",
+  "trail-it/moonstream",
+}
+
+// Values
+
+// Errors
+pub(all) suberror SessionError {
+  UnknownCall(key~ : CallKey)
+  CallIdConflict(key~ : CallKey, existing~ : String, incoming~ : String)
+  CallNameConflict(key~ : CallKey, existing~ : String, incoming~ : String)
+  InvalidLimits(error~ : @moonstream.ParseError)
+  ParseFailed(key~ : CallKey, error~ : @moonstream.ParseError)
+} derive(Eq, ToJson, @debug.Debug)
+
+// Types and methods
+pub(all) struct CallKey {
+  response : String
+  choice : Int
+  index : Int
+} derive(Eq, ToJson, @debug.Debug)
+pub fn CallKey::new(response? : String, choice? : Int, index? : Int) -> Self
+
+pub struct Session {
+  inner : SessionState
+}
+pub fn Session::call_count(Self) -> Int
+pub fn Session::call_id(Self, CallKey) -> String?
+pub fn Session::call_name(Self, CallKey) -> String?
+pub fn Session::calls(Self) -> Array[CallKey]
+pub fn Session::failure(Self, CallKey) -> @moonstream.ParseError?
+pub fn Session::feed(Self, CallKey, Bytes) -> Array[@moonstream.Event] raise SessionError
+pub fn Session::finish(Self, CallKey, reason? : @moonstream.EndReason) -> (Array[@moonstream.Event], @moonstream.FinishResult) raise SessionError
+pub fn Session::is_failed(Self, CallKey) -> Bool
+pub fn Session::is_finished(Self, CallKey) -> Bool
+pub fn Session::is_open(Self, CallKey) -> Bool
+pub fn Session::new(limits? : @moonstream.Limits) -> Self raise SessionError
+pub fn Session::offset(Self, CallKey) -> Int?
+pub fn Session::open(Self, CallKey, id? : String?, name? : String?) -> Unit raise SessionError
+pub fn Session::open_calls(Self) -> Array[CallKey]
+
+type SessionState
+
+// Type aliases
+
+// Traits
+

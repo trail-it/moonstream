@@ -1,0 +1,48 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "trail-it/moonstream/preview"
+
+import {
+  "moonbitlang/core/debug",
+  "trail-it/moonstream",
+}
+
+// Values
+
+// Errors
+pub(all) suberror PreviewError {
+  PathConflict(path~ : @moonstream.Path, detail~ : String)
+  MissingParent(path~ : @moonstream.Path)
+} derive(Eq, ToJson, @debug.Debug)
+
+// Types and methods
+pub(all) enum ContainerKind {
+  Object
+  Array
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) enum NodeState {
+  Missing
+  Pending
+  Container(kind~ : ContainerKind, closed~ : Bool)
+  IncompleteString(text~ : String)
+  Complete(value~ : @moonstream.LeafValue)
+} derive(Eq, ToJson, @debug.Debug)
+
+pub struct Preview {
+  inner : PreviewState
+}
+pub fn Preview::apply(Self, @moonstream.Event) -> Unit raise PreviewError
+pub fn Preview::children(Self, @moonstream.Path) -> Array[(@moonstream.PathSegment, NodeState)]
+pub fn Preview::clear(Self) -> Unit
+pub fn Preview::is_empty(Self) -> Bool
+pub fn Preview::lookup(Self, @moonstream.Path) -> NodeState
+pub fn Preview::new() -> Self
+pub fn Preview::node_count(Self) -> Int
+pub fn Preview::to_preview_string(Self) -> String
+
+type PreviewState
+
+// Type aliases
+
+// Traits
+

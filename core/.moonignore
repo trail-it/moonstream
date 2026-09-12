@@ -1,0 +1,4 @@
+# workspace 成员与本地文件不属于主库的发布内容
+/adapters/
+/adapters/**
+/moon.work

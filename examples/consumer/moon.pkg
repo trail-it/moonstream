@@ -1,0 +1,6 @@
+import {
+  "trail-it/moonstream",
+  "trail-it/moonstream/preview",
+}
+
+pkgtype(kind: "executable")

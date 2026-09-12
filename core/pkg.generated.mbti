@@ -1,0 +1,133 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "trail-it/moonstream"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+}
+
+// Values
+
+// Errors
+pub(all) suberror ParseError {
+  InvalidSyntax(pos~ : Int, expected~ : String, found~ : String)
+  InvalidUtf8(pos~ : Int, kind~ : Utf8ErrorKind)
+  InvalidEscape(pos~ : Int, detail~ : String)
+  InvalidNumber(pos~ : Int, lexeme~ : String)
+  InvalidUnicodeEscape(pos~ : Int, detail~ : String)
+  DuplicateKey(pos~ : Int, key~ : String, path~ : Path)
+  TrailingContent(pos~ : Int)
+  LimitExceeded(kind~ : LimitKind, pos~ : Int, allowed~ : Int, actual~ : Int)
+  AlreadyFinished(op~ : String)
+  InvalidLimits(detail~ : String)
+} derive(Eq, ToJson, @debug.Debug)
+
+// Types and methods
+pub struct CompletedDocument {
+  text : String
+  byte_length : Int
+} derive(Eq, ToJson, @debug.Debug)
+pub fn CompletedDocument::byte_length(Self) -> Int
+pub fn CompletedDocument::to_json(Self) -> Json raise @json.ParseError
+pub fn CompletedDocument::to_string(Self) -> String
+
+pub(all) enum EndReason {
+  EndOfStream
+  Cancelled
+  Truncated
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) enum Event {
+  ObjectBegin(path~ : Path, span~ : Span)
+  ObjectEnd(path~ : Path, span~ : Span)
+  ArrayBegin(path~ : Path, span~ : Span)
+  ArrayEnd(path~ : Path, span~ : Span)
+  KeyComplete(path~ : Path, name~ : String, span~ : Span)
+  StringDelta(path~ : Path, text~ : String, span~ : Span)
+  ValueComplete(path~ : Path, value~ : LeafValue, span~ : Span)
+} derive(Eq, ToJson, @debug.Debug)
+pub fn Event::path(Self) -> Path
+pub fn Event::span(Self) -> Span
+
+pub(all) enum FinishResult {
+  Completed(CompletedDocument)
+  Incomplete(pos~ : Int, expected~ : String)
+  Aborted(reason~ : EndReason)
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) enum LeafValue {
+  Null
+  Bool(Bool)
+  Number(NumberLiteral)
+  String(String)
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) enum LimitKind {
+  Depth
+  TokenBytes
+  Nodes
+  TotalBytes
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct Limits {
+  max_depth : Int
+  max_token_bytes : Int
+  max_nodes : Int
+  max_total_bytes : Int
+} derive(Eq, ToJson, @debug.Debug)
+pub fn Limits::new(max_depth? : Int, max_token_bytes? : Int, max_nodes? : Int, max_total_bytes? : Int) -> Self raise ParseError
+pub fn Limits::strict() -> Self
+
+pub(all) struct NumberLiteral {
+  lexeme : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn NumberLiteral::lexeme(Self) -> String
+pub fn NumberLiteral::new(String) -> Self
+pub fn NumberLiteral::to_double(Self) -> Double?
+
+pub struct Parser {
+  inner : ParserState
+}
+pub fn Parser::feed(Self, Bytes) -> Array[Event] raise ParseError
+pub fn Parser::finish(Self, reason? : EndReason) -> (Array[Event], FinishResult) raise ParseError
+pub fn Parser::is_finished(Self) -> Bool
+pub fn Parser::limits(Self) -> Limits
+pub fn Parser::new(limits? : Limits) -> Self raise ParseError
+pub fn Parser::offset(Self) -> Int
+
+type ParserState
+
+pub(all) struct Path {
+  segments : Array[PathSegment]
+} derive(Eq, ToJson, @debug.Debug)
+pub fn Path::child_index(Self, Int) -> Self
+pub fn Path::child_key(Self, String) -> Self
+pub fn Path::is_root(Self) -> Bool
+pub fn Path::length(Self) -> Int
+pub fn Path::root() -> Self
+pub fn Path::to_string(Self) -> String
+
+pub(all) enum PathSegment {
+  Key(String)
+  Index(Int)
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct Span {
+  start : Int
+  end : Int
+} derive(Eq, ToJson, @debug.Debug)
+pub fn Span::length(Self) -> Int
+pub fn Span::new(Int, Int) -> Self
+
+pub(all) enum Utf8ErrorKind {
+  InvalidLeadByte
+  InvalidContinuation
+  OverlongEncoding
+  SurrogateCodePoint
+  OutOfRange
+} derive(Eq, ToJson, @debug.Debug)
+
+// Type aliases
+
+// Traits
+

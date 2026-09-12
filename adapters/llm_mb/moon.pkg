@@ -1,0 +1,11 @@
+import {
+  "trail-it/moonstream",
+  "trail-it/moonstream/session",
+  "trail-it/moonstream/adapter",
+  "marianoguerra/llm",
+  "moonbitlang/core/encoding/utf8",
+}
+
+import {
+  "trail-it/moonstream",
+} for "test"

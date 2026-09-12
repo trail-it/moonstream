@@ -1,0 +1,8 @@
+members = [
+  "./core",
+  "./adapters/llm_mb",
+  "./adapters/mizchi_llm",
+  "./adapters/moonllm",
+  "./demo",
+  "./examples/consumer",
+]

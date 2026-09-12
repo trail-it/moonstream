@@ -1,0 +1,27 @@
+// 演示模块只面向 wasm-gc。
+//
+// 这里用链接配置里的 `exports` 而不是 `#export_name`：`#export_name` 要求包是
+// `foreign_library`，而 foreign_library 包在 `moon test` 下会因为没有测试产物
+// 的语义而报错。用 `exports` 保持普通库包，导出集由配置给出。
+supported_targets = "wasm-gc"
+
+import {
+  "trail-it/moonstream",
+  "trail-it/moonstream/preview",
+  "moonbitlang/core/encoding/utf8",
+}
+
+options(
+  link: {
+    "wasm-gc": {
+      "exports": [
+        "demo_reset:moonstream_demo_reset",
+        "demo_set_chunk_size:moonstream_demo_set_chunk_size",
+        "demo_step:moonstream_demo_step",
+        "demo_truncate:moonstream_demo_truncate",
+        "demo_render_len:moonstream_demo_render_len",
+        "demo_render_char:moonstream_demo_render_char",
+      ],
+    },
+  },
+)

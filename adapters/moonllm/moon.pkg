@@ -1,0 +1,11 @@
+// moonllm 只支持 native（它依赖 mio / async 的 IO 能力），
+// 因此这个适配模块也只声明 native。
+supported_targets = "native"
+
+import {
+  "trail-it/moonstream",
+  "trail-it/moonstream/session",
+  "trail-it/moonstream/adapter",
+  "DC-Z-lab/moonllm" @sdk,
+  "moonbitlang/core/encoding/utf8",
+}
