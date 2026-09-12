@@ -1,23 +1,29 @@
 # MoonStream 项目申报书
-项目名称：MoonStream
-项目仓库：https://github.com/trail-it/moonstream
-Gitlink 仓库：待创建并与 GitHub 默认分支同步
-Mooncakes：`trail-it/moonstream`、`trail-it/llm_mb_adapter`、`trail-it/mizchi_llm_adapter`、`trail-it/moonllm_adapter`
-项目类型：原创 MoonBit 基础库；适配已有 SDK 的公开事件类型，不移植其他语言代码
-一句话介绍：一个为 MoonBit 生态提供 LLM 流式结构化输出增量解析与完整性契约的开源项目。
 
-## 背景与价值
-MoonBit 的 LLM SDK 已能持续返回 tool-call 参数片段，但应用仍需自行处理未闭合 JSON、跨块 UTF-8、截断流和多调用交错。MoonStream 把这层能力沉淀为独立基础库，使界面能安全预览字段，同时明确区分“当前可见内容”和“最终可交付文档”。
+**基本信息**
 
-## 核心功能
-1. 字节级增量 JSON 状态机，支持任意分块和跨块 UTF-8。
-2. 输出结构事件、已完成叶值、部分树预览及 `Completed/Incomplete/Aborted` 终态。
-3. `Session` 按响应、选择和调用索引隔离并发 tool call，单次失败不丢失其他结果。
-4. 提供 marianoguerra/llm、mizchi/llm、DC-Z-lab/moonllm 三个独立适配器。
-5. 提供 Native 消费者、离线回放工具及 wasm-gc 浏览器演示。
+- 项目名称：MoonStream：MoonBit LLM 流式 JSON 增量解析引擎
+- 参赛者：`【请填写真实姓名】`；联系方式：`【请填写手机号或邮箱】`
+- GitHub 仓库链接：[https://github.com/trail-it/moonstream](https://github.com/trail-it/moonstream)
+- Gitlink 仓库链接：`【创建并同步后填写】`
+- Mooncakes 主包：`trail-it/moonstream`
+- 项目方向：MoonBit AI 基础设施 / 流式结构化输出解析
+- 是否为移植项目：否，为原创项目
 
-## 独立贡献与生态差异
-现有 SDK 负责模型通信和文本增量，JSON/JSONL 库面向完整文档；本项目新增半成品 JSON 的严格语义、分块不变性、调用隔离和可测试的结束契约。项目不实现 HTTP、SSE、Schema 或工具执行，边界清晰，可被不同 SDK 和 Agent 框架复用。
+**项目简介**
 
-## 实施与交付
-主库及三个适配包已发布 0.1.0；本地 Native 128 项、JS 121 项、wasm-gc 121 项测试及 17 项 Demo 检查通过。交付物包括 Apache-2.0 源码、README、API/语义文档、CI、示例、演示、变更记录和第三方来源说明。后续计划是完成 Gitlink 同步、收集真实接入反馈并持续维护 SDK 兼容性。
+MoonStream 为 MoonBit 应用提供 LLM tool-call 参数的字节级增量解析能力。模型返回参数时，应用收到的通常是未闭合 JSON 片段，还要面对跨块 UTF-8、半个数字、截断流和多个工具调用交错等问题。MoonStream 在片段到达时输出结构事件、已完成字段和部分树预览，并通过明确的完成契约阻止应用把不完整内容误当成最终结果。它可用于 Agent 工具调用、结构化表单、工单草稿和实时生成界面。
+
+**核心功能范围**
+
+- 提供严格的字节级增量 JSON 状态机，支持任意分块、跨块 UTF-8、转义字符及嵌套对象和数组；
+- 输出对象、数组、键名、字符串增量和叶值完成事件，使字段在整篇文档结束前即可安全使用；
+- 提供 `Preview` 部分树，区分缺失、生成中、未闭合字符串、完整值和 JSON `null`；
+- 提供 `Completed`、`Incomplete`、`Aborted` 终态，只有正常流结束且 JSON 完整时才交付文档；
+- 提供 `Session` 多调用路由，按响应、选择和调用索引隔离交错的 tool call，单个调用失败不影响其他结果；
+- 在仓库中提供 marianoguerra/llm、mizchi/llm 和 DC-Z-lab/moonllm 的适配示例；
+- 提供 Native 消费者、CLI 离线回放和 wasm-gc 浏览器演示，并以 CI 覆盖检查、构建和测试。
+
+**原创或参考说明**：本项目没有移植其他语言解析器。现有 MoonBit LLM SDK 负责模型通信和文本增量，JSON/JSONL 库主要处理完整文档；MoonStream 新增半成品 JSON 的严格语义、分块不变性、多调用隔离和可测试的结束契约。适配示例仅使用三个 SDK 的公开事件类型，来源和许可证记录在 `THIRD_PARTY.md`；本项目采用 Apache-2.0 许可证。
+
+**实施与交付**：核心解析器、预览、会话路由、示例、文档和测试已经完成，`trail-it/moonstream` 0.1.0 已发布。当前本地验证为 Native 128 项、JS 121 项、wasm-gc 121 项测试及 17 项演示检查全部通过。后续完成 Gitlink 同步、远端 CI 兼容性收尾和真实 SDK 接入反馈，并持续维护工具链与上游 SDK 兼容性。
