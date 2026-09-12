@@ -139,7 +139,7 @@ fn render_state() -> String {
 
 ///|
 /// 渲染结果缓存，供 `render_char` 逐字符读取。
-let render_buffer : StringBuilder = StringBuilder::new()
+let render_buffer : StringBuilder = StringBuilder()
 
 ///|
 /// 把当前状态写进缓冲区。

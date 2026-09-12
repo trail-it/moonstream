@@ -177,9 +177,9 @@ pub fn Parser::new(limits? : Limits) -> Parser raise ParseError {
     finished: false,
     events: [],
     raw: [],
-    str_buf: StringBuilder::new(),
-    str_delta: StringBuilder::new(),
-    num_buf: StringBuilder::new(),
+    str_buf: StringBuilder(),
+    str_delta: StringBuilder(),
+    num_buf: StringBuilder(),
     token_start: 0,
     token_bytes: 0,
     in_key: false,
@@ -223,14 +223,12 @@ pub fn Parser::feed(
   if self.inner.finished {
     raise ParseError::AlreadyFinished(op="feed")
   }
-  try self.feed_inner(bytes) catch {
-    err => {
-      self.inner.finished = true
-      raise err
-    }
-  } noraise {
-    events => events
-  }
+  // A failing synchronous feed leaves the parser terminal. Reopen only after
+  // success; feed_inner neither observes this flag nor invokes user callbacks.
+  self.inner.finished = true
+  let events = self.feed_inner(bytes)
+  self.inner.finished = false
+  events
 }
 
 ///|

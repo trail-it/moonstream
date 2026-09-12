@@ -34,7 +34,7 @@ fn Node::array() -> Node {
 
 ///|
 fn Node::string() -> Node {
-  { closed: false, kind: NStr(StringBuilder::new()) }
+  { closed: false, kind: NStr(StringBuilder()) }
 }
 
 ///|

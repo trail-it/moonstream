@@ -106,7 +106,7 @@ pub fn Preview::apply(
           node.closed = false
         }
         NPending => {
-          let buffer = StringBuilder::new()
+          let buffer = StringBuilder()
           buffer.write_string(text)
           node.kind = NStr(buffer)
           node.closed = false
