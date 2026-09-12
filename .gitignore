@@ -4,6 +4,7 @@ target/
 target
 .mooncakes/
 .moonagent/
+.moon-latest/
 
 # 演示用的 wasm 由 demo/build.mjs 生成
 demo/www/moonstream_demo.wasm

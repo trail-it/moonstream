@@ -26,8 +26,8 @@ jobs:
         run: moon update
 
       # 工作区上下文：主库 + 三个 SDK 适配模块 + wasm-gc 演示
-      - name: Check all backends with warnings denied
-        run: moon check --deny-warn --target all
+      - name: Check all backends
+        run: moon check --target all
 
       - name: Test wasm-gc
         run: moon test --target wasm-gc

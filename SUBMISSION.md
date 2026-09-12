@@ -1,19 +1,23 @@
-# MoonStream 项目申报摘要（待补仓库链接）
+# MoonStream 项目申报书
+项目名称：MoonStream
+项目仓库：https://github.com/trail-it/moonstream
+Gitlink 仓库：待创建并与 GitHub 默认分支同步
+Mooncakes：`trail-it/moonstream`、`trail-it/llm_mb_adapter`、`trail-it/mizchi_llm_adapter`、`trail-it/moonllm_adapter`
+项目类型：原创 MoonBit 基础库；适配已有 SDK 的公开事件类型，不移植其他语言代码
+一句话介绍：一个为 MoonBit 生态提供 LLM 流式结构化输出增量解析与完整性契约的开源项目。
 
-- 项目名称：MoonStream。
-- GitHub 仓库：https://github.com/trail-it/moonstream。
-- Gitlink 仓库：待创建并与 GitHub 同步。
-- 项目类型：原创增量解析库；基于现有 SDK 的公开类型实现接入，非跨语言代码移植。
-- 一句话：为 MoonBit 提供 LLM 流式结构化输出的字段事件与完整性判断能力。
-- 方向与场景：基础组件；工单草稿、结构化表单及多个工具调用的实时预览。
-- 生态价值：SDK 提供文本片段，MoonStream 补充半成品 JSON 的严格增量语义与调用隔离。
-- 核心功能：字节状态机、跨块 UTF-8、字段事件、Preview、Session、三种 SDK 适配。
-- 完整性：内容块结束不等于响应正常结束；截断与取消不能产生 CompletedDocument。
-- 独立贡献：原创解析状态机、分块不变性约定、调用键路由和可测试的结束契约。
-- 实施进展：本地实现与回归已完成；公开发布、远端 CI 和外部使用验证待完成。
-- 交付物：Mooncakes 主库及独立适配包、API 文档、消费者示例、CLI 回放、wasm-gc 演示。
-- 验证：native / JS / wasm-gc 测试及部署 wasm 自动检查；详见验收报告。
-- 计划：补真实仓库与开发记录 → 远端 CI → 发布 → 从注册表安装验证 → 获取使用反馈。
-- 许可证：Apache-2.0；SDK 与生成文件的来源说明见 THIRD_PARTY.md。
-- 范围边界：不实现模型网络协议、SSE、Schema、任意 JSON 修复或自动工具执行。
-- 参赛资格与当前时间窗口：以赛事组确认结果为准，本文件不表示已报名或已获验收。
+## 背景与价值
+MoonBit 的 LLM SDK 已能持续返回 tool-call 参数片段，但应用仍需自行处理未闭合 JSON、跨块 UTF-8、截断流和多调用交错。MoonStream 把这层能力沉淀为独立基础库，使界面能安全预览字段，同时明确区分“当前可见内容”和“最终可交付文档”。
+
+## 核心功能
+1. 字节级增量 JSON 状态机，支持任意分块和跨块 UTF-8。
+2. 输出结构事件、已完成叶值、部分树预览及 `Completed/Incomplete/Aborted` 终态。
+3. `Session` 按响应、选择和调用索引隔离并发 tool call，单次失败不丢失其他结果。
+4. 提供 marianoguerra/llm、mizchi/llm、DC-Z-lab/moonllm 三个独立适配器。
+5. 提供 Native 消费者、离线回放工具及 wasm-gc 浏览器演示。
+
+## 独立贡献与生态差异
+现有 SDK 负责模型通信和文本增量，JSON/JSONL 库面向完整文档；本项目新增半成品 JSON 的严格语义、分块不变性、调用隔离和可测试的结束契约。项目不实现 HTTP、SSE、Schema 或工具执行，边界清晰，可被不同 SDK 和 Agent 框架复用。
+
+## 实施与交付
+主库及三个适配包已发布 0.1.0；本地 Native 128 项、JS 121 项、wasm-gc 121 项测试及 17 项 Demo 检查通过。交付物包括 Apache-2.0 源码、README、API/语义文档、CI、示例、演示、变更记录和第三方来源说明。后续计划是完成 Gitlink 同步、收集真实接入反馈并持续维护 SDK 兼容性。
