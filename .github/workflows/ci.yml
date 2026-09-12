@@ -22,6 +22,9 @@ jobs:
       - name: Show toolchain version
         run: moon version --all
 
+      - name: Update package registry
+        run: moon update
+
       # 工作区上下文：主库 + 三个 SDK 适配模块 + wasm-gc 演示
       - name: Check all backends with warnings denied
         run: moon check --deny-warn --target all
