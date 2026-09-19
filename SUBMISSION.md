@@ -3,9 +3,8 @@
 **基本信息**
 
 - 项目名称：MoonStream：MoonBit LLM 流式 JSON 增量解析引擎
-- 参赛者：`【请填写真实姓名】`；联系方式：`【请填写手机号或邮箱】`
+- 参赛者：涂志鸿；
 - GitHub 仓库链接：[https://github.com/trail-it/moonstream](https://github.com/trail-it/moonstream)
-- Gitlink 仓库链接：`【创建并同步后填写】`
 - Mooncakes 主包：`trail-it/moonstream`
 - 项目方向：MoonBit AI 基础设施 / 流式结构化输出解析
 - 是否为移植项目：否，为原创项目
