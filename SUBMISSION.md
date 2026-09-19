@@ -25,4 +25,4 @@ MoonStream 为 MoonBit 应用提供 LLM tool-call 参数的字节级增量解析
 
 **原创或参考说明**：本项目没有移植其他语言解析器。现有 MoonBit LLM SDK 负责模型通信和文本增量，JSON/JSONL 库主要处理完整文档；MoonStream 新增半成品 JSON 的严格语义、分块不变性、多调用隔离和可测试的结束契约。适配示例仅使用三个 SDK 的公开事件类型，来源和许可证记录在 `THIRD_PARTY.md`；本项目采用 Apache-2.0 许可证。
 
-**实施与交付**：核心解析器、预览、会话路由、示例、文档和测试已经完成，`trail-it/moonstream` 0.1.0 已发布。当前本地验证为 Native 128 项、JS 121 项、wasm-gc 121 项测试及 17 项演示检查全部通过。后续完成 Gitlink 同步、远端 CI 兼容性收尾和真实 SDK 接入反馈，并持续维护工具链与上游 SDK 兼容性。
+**实施与交付**：核心解析器、预览、会话路由、示例、文档和测试已经完成，`trail-it/moonstream` 0.1.1 已发布。当前本地验证为 Native 131 项、JS 124 项、wasm-gc 124 项测试及 17 项演示检查全部通过。后续完成 Gitlink 同步、真实 SDK 接入反馈，并持续维护工具链与上游 SDK 兼容性。

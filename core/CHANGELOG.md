@@ -5,7 +5,19 @@
 
 ## [Unreleased]
 
-## [0.1.1] - 2026-09-12
+## [0.1.1] - 2026-09-19
+
+### Added
+
+- `Parser::feed_text` 与 `Session::feed_text` 直接消费 LLM SDK 的 UTF-8 文本片段。
+- `Preview::apply_all` 支持批量投影事件，`completed_leaves` 枚举当前已完成叶值。
+
+### Changed
+
+- 三个 SDK 适配器统一使用文本输入 API，移除重复的 UTF-8 编码依赖。
+- README 明确 `trail-it/moonstream` 是参赛主包，适配模块是可选集成示例。
+
+### Fixed
 
 - 使用新旧工具链均支持的 StringBuilder 构造和 Debug trait 格式化。
 - 同步 feed 的失败终态保持契约；成功后才重新开放解析器。
@@ -136,8 +148,3 @@
   （`llm@0.1.1`、`mizchi/llm@0.3.1`），接口与各自最新版一致。理由见设计决策 D8/D9。
 - 演示模块用 `moon.pkg` 的链接配置 `exports` 而不是 `#export_name`，因为后者要求
   `foreign_library` 包，而该包在 `moon test` 下无法构建测试产物。见设计决策 D13。
-
-### Not yet
-
-- 未发布到 mooncakes.io，未创建 GitHub / Gitlink 仓库。
-- 未在注册表安装"已发布版本"做端到端验证（需要先发布）。

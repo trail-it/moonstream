@@ -72,8 +72,11 @@ npx --yes serve .          # 或任意静态服务器
 
 ### D. 在你自己的项目里用
 
-> **注意**：`moon add trail-it/moonstream` **现在还不行**——包还没发布到 mooncakes.io。
-> 本地使用时，把项目建成这个 workspace 的成员即可。
+`trail-it/moonstream` 已发布到 Mooncakes，可直接加入现有 MoonBit 项目：
+
+```bash
+moon add trail-it/moonstream@0.1.1
+```
 
 1. 在仓库里新建一个模块目录，例如 `myapp/`：
 
@@ -82,7 +85,7 @@ npx --yes serve .          # 或任意静态服务器
    name = "you/myapp"
    version = "0.1.0"
    import {
-     "trail-it/moonstream@0.1.0",
+     "trail-it/moonstream@0.1.1",
    }
    ```
 
@@ -118,17 +121,17 @@ npx --yes serve .          # 或任意静态服务器
 | 2 | 源码结构清晰、能完成声明的功能 | 见第 1 节 A/B/C | 三种用法都能跑出预期输出 |
 | 3 | README 说明目标、安装、用法、示例 | 读 `README.md`、`core/README.md` | 含快速开始与可复现示例 |
 | 4 | 至少一个可运行示例 | `moon run --target native examples/consumer` | 输出与本文一致 |
-| 5 | 完整测试覆盖核心路径 | `moon test --target native` | **128 passed, 0 failed** |
-| 6 | 三后端一致 | `moon test --target wasm-gc` / `--target js` | 各 **121 passed, 0 failed** |
-| 7 | CI 覆盖检查/构建/测试 | 读 `.github/workflows/ci.yml` | 含 `check --deny-warn --target all`、三后端测试、演示检查、打包边界断言 |
+| 5 | 完整测试覆盖核心路径 | `moon test --target native` | **131 passed, 0 failed** |
+| 6 | 三后端一致 | `moon test --target wasm-gc` / `--target js` | 各 **124 passed, 0 failed** |
+| 7 | CI 覆盖检查/构建/测试 | 读 `.github/workflows/ci.yml` | 含 `check --target all`、三后端测试、演示检查、打包边界断言 |
 | 8 | 工程质量（零告警） | `moon check --deny-warn --target all` | 无输出（0 error 0 warning） |
 | 9 | 干净环境可复现 | `node scripts/verify-clean.mjs` | 结尾 `干净环境复现：全部通过` |
 | 10 | 示例端到端（真实 wasm 产物） | `node demo/check.mjs` | `全部通过`（17 项） |
 | 11 | 复杂度可复现 | `moon bench --target native --release core/perf` | 打印各规模耗时；解读见 `core/docs/performance.md` |
 | 12 | 语义有规范、非口头承诺 | 读 `core/docs/semantics.md` | 含承诺与**不承诺**清单 |
 | 13 | 许可证 | 根目录 `LICENSE` 及各发布模块的 `LICENSE` | Apache-2.0（OSI 认可） |
-| 14 | 发布到 mooncakes.io | `moon -C core publish` | ⚠️ **未完成**（见第 4 节） |
-| 15 | 仓库公开可访问 | — | ⚠️ **未完成**（见第 4 节） |
+| 14 | 发布到 mooncakes.io | `moon add trail-it/moonstream@0.1.1` | 主包可从注册表安装 |
+| 15 | 仓库公开可访问 | [GitHub](https://github.com/trail-it/moonstream) | `main` 分支公开，提交历史与 CI 可审查 |
 
 以下命令检查功能、演示与干净副本；性能基准另见第 11 项：
 
@@ -180,12 +183,12 @@ moon test core\api_test.mbt --target native   # 只跑一个文件
 
 ---
 
-## 4. 仍需完成的事项（验收时请如实记录）
+## 4. 发布状态与后续事项
 
 | 项 | 现状 | 影响 |
 |---|---|---|
-| 发布到 mooncakes.io | 未发布。`moon -C core package` 已能产出可发布归档，命名空间 `Magic486` 已登录 | 消费者暂时**不能** `moon add`；本地只能用 workspace 成员 |
-| GitHub / Gitlink 仓库 | 未创建，无提交历史 | 章程要求"仓库公开可访问、提交记录清晰"这一项目前不满足 |
+| 发布到 mooncakes.io | `trail-it/moonstream` 0.1.1 已发布；三个适配模块仅作为仓库内集成示例 | 消费者可直接 `moon add` 主包 |
+| GitHub / Gitlink 仓库 | GitHub 仓库、提交历史和 CI 已公开；Gitlink 同步待完成 | GitHub 已满足源码审查，后续补充国产托管镜像 |
 | 外部采用 / 官方推荐 | **没有任何外部反馈或采用记录** | `core/docs/outreach.md` 里只有草稿，一份都没发出 |
 
 其余（代码、测试、CI、文档、示例、许可证、演示）都已就绪并可按本文复现。
@@ -196,7 +199,7 @@ moon test core\api_test.mbt --target native   # 只跑一个文件
 
 | 现象 | 原因 / 处理 |
 |---|---|
-| `moon add trail-it/moonstream` 失败 | 未发布，见第 4 节；改用 workspace 成员（第 1 节 D） |
+| `moon add trail-it/moonstream` 失败 | 先运行 `moon update`，再指定 `@0.1.1`；仍失败时检查网络和 Mooncakes 登录状态 |
 | 浏览器页面空白、控制台报 fetch 失败 | 用了 `file://` 打开；改用 HTTP 服务器 |
 | `node demo/check.mjs` 报找不到 wasm | 先跑 `node demo/build.mjs`（它会复制页面实际加载的 wasm 文件） |
 | 适配层 `moonllm` 在 js / wasm-gc 下"消失" | 该 SDK 只支持 native，适配模块声明了 `supported_targets = "native"`，其它后端自动跳过 |

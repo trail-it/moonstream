@@ -6,8 +6,9 @@
 跨片段保存语法状态，交付**结构事件**、**已完成叶值**、**部分树预览**和**完整性判断**——不负责连接模型，
 也不假装预览就是最终结果。
 
-状态：**0.1.0 主库与三个适配包已发布到 Mooncakes**；源码位于
-[GitHub](https://github.com/trail-it/moonstream)，本地三个后端及演示检查已通过。
+状态：**参赛主包 `trail-it/moonstream` 0.1.1 已发布到 Mooncakes**；源码位于
+[GitHub](https://github.com/trail-it/moonstream)。仓库中的三个 SDK 适配模块属于可选集成示例，
+不作为独立参赛项目申报。
 
 ## 仓库结构
 
@@ -16,15 +17,15 @@
 
 本仓库是一个 MoonBit workspace（`moon.work`）：
 
-| 目录 | 内容 | 发布单元 |
+| 目录 | 内容 | 在项目中的角色 |
 |---|---|---|
-| [`core/`](core/) | 主库：增量解析、事件、预览投影、多调用路由 | `trail-it/moonstream` |
-| [`adapters/llm_mb/`](adapters/llm_mb/) | 适配 `marianoguerra/llm@0.1.1`（llm-mb） | `trail-it/llm_mb_adapter` |
-| [`adapters/mizchi_llm/`](adapters/mizchi_llm/) | 适配 `mizchi/llm@0.3.1` | `trail-it/mizchi_llm_adapter` |
-| [`adapters/moonllm/`](adapters/moonllm/) | 适配 `DC-Z-lab/moonllm@0.1.0` | `trail-it/moonllm_adapter` |
-| [`examples/consumer/`](examples/consumer/) | 最小消费者示例 | — |
-| [`demo/`](demo/) | 浏览器 wasm-gc 离线演示 | — |
-| [`scripts/`](scripts/) | 干净环境复现脚本 | — |
+| [`core/`](core/) | 增量解析、事件、预览投影、多调用路由 | 参赛主包 `trail-it/moonstream` |
+| [`adapters/llm_mb/`](adapters/llm_mb/) | 适配 `marianoguerra/llm@0.1.1`（llm-mb） | 可选集成示例 |
+| [`adapters/mizchi_llm/`](adapters/mizchi_llm/) | 适配 `mizchi/llm@0.3.1` | 可选集成示例 |
+| [`adapters/moonllm/`](adapters/moonllm/) | 适配 `DC-Z-lab/moonllm@0.1.0` | 可选集成示例 |
+| [`examples/consumer/`](examples/consumer/) | 最小消费者示例 | 可运行示例 |
+| [`demo/`](demo/) | 浏览器 wasm-gc 离线演示 | 展示应用 |
+| [`scripts/`](scripts/) | 干净环境复现脚本 | 发布验证 |
 
 **主库不依赖任何 LLM SDK**：每个适配层是独立模块，各自承担自己那一个 SDK 的依赖图，
 因此只解析 JSON 的消费者不会被连带拉入 `async` / `mio` / 压缩库。
@@ -98,9 +99,9 @@ JavaScript 只负责绘制。浏览器与 Node 共用同一份 `demo/www/host.js
 
 ```bash
 moon check --deny-warn --target all     # 工作区根目录
-moon test --target native               # 128 个测试（含 native-only 的 moonllm 适配）
-moon test --target js                   # 121 个测试
-moon test --target wasm-gc              # 121 个测试
+moon test --target native               # 131 个测试（含 native-only 的 moonllm 适配）
+moon test --target js                   # 124 个测试
+moon test --target wasm-gc              # 124 个测试
 moon -C core package                    # 主库发布包（不含适配层）
 moon bench --target native --release core/perf   # 复杂度基线
 node scripts/verify-clean.mjs           # 干净环境复现（临时目录，无构建缓存）

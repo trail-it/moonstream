@@ -6,7 +6,7 @@
 跨片段保存语法状态，交付**结构事件**、**已完成叶值**和**完整性判断**——不负责连接模型，也不假装
 预览就是最终结果。
 
-版本：**0.1.0**。[GitHub 仓库](https://github.com/trail-it/moonstream)。
+版本：**0.1.1**。[GitHub 仓库](https://github.com/trail-it/moonstream)。
 
 ## 它解决什么问题
 
@@ -207,9 +207,9 @@ moon run --target native cmd/replay -- '01' 1       # 前导零错误
 
 ```bash
 moon check --deny-warn --target all
-moon test --target wasm-gc              # 121 个测试
-moon test --target js                   # 121 个测试
-moon test --target native               # 128 个测试（含 native-only 的 moonllm 适配）
+moon test --target wasm-gc              # 124 个测试
+moon test --target js                   # 124 个测试
+moon test --target native               # 131 个测试（含 native-only 的 moonllm 适配）
 moon fmt && moon info
 moon -C core package                    # 主库发布包
 ```
