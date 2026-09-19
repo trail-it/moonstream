@@ -54,7 +54,7 @@ struct PreviewState {
 ///|
 /// 空预览。
 pub fn Preview::new() -> Preview {
-  { inner: { root: None, count: 0 } }
+  { inner: { root: None, count: 0, }, }
 }
 
 ///|

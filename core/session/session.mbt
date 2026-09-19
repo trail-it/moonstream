@@ -98,7 +98,7 @@ pub fn Session::new(limits? : @moonstream.Limits) -> Session raise SessionError 
   } noraise {
     _ => ()
   }
-  { inner: { limits, calls: [] } }
+  { inner: { limits, calls: [], }, }
 }
 
 ///|
@@ -120,7 +120,7 @@ pub fn Session::open(
       let parser = @moonstream.Parser::new(limits=self.inner.limits) catch {
         err => raise SessionError::ParseFailed(key~, error=err)
       }
-      let entry = { key, parser, id: None, name: None, state: Open }
+      let entry = { key, parser, id: None, name: None, state: Open, }
       self.inner.calls.push(entry)
       entry
     }

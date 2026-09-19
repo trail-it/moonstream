@@ -52,7 +52,7 @@ fn delta(
   name : String?,
   arguments : String?,
 ) -> @sdk.ToolCallDelta {
-  { index, id, name, arguments }
+  { index, id, name, arguments, }
 }
 
 ///|

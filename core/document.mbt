@@ -16,7 +16,7 @@ fn CompletedDocument::new(
   text : String,
   byte_length : Int,
 ) -> CompletedDocument {
-  { text, byte_length }
+  { text, byte_length, }
 }
 
 ///|

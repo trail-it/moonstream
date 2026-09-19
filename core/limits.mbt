@@ -30,7 +30,7 @@ pub fn Limits::new(
   max_total_bytes? : Int = 67108864,
 ) -> Limits raise ParseError {
   validate_limits(max_depth~, max_token_bytes~, max_nodes~, max_total_bytes~)
-  { max_depth, max_token_bytes, max_nodes, max_total_bytes }
+  { max_depth, max_token_bytes, max_nodes, max_total_bytes, }
 }
 
 ///|

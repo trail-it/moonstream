@@ -9,7 +9,7 @@ pub(all) struct Span {
 
 ///|
 pub fn Span::new(start : Int, end : Int) -> Span {
-  { start, end }
+  { start, end, }
 }
 
 ///|

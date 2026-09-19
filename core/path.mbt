@@ -18,7 +18,7 @@ pub(all) struct Path {
 ///|
 /// 根路径（空路径）。
 pub fn Path::root() -> Path {
-  { segments: [] }
+  { segments: [], }
 }
 
 ///|

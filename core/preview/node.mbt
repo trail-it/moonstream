@@ -24,25 +24,25 @@ priv struct Node {
 
 ///|
 fn Node::object() -> Node {
-  { closed: false, kind: NObj(Map([])) }
+  { closed: false, kind: NObj(Map([])), }
 }
 
 ///|
 fn Node::array() -> Node {
-  { closed: false, kind: NArr([]) }
+  { closed: false, kind: NArr([]), }
 }
 
 ///|
 fn Node::string() -> Node {
-  { closed: false, kind: NStr(StringBuilder()) }
+  { closed: false, kind: NStr(StringBuilder()), }
 }
 
 ///|
 fn Node::leaf(value : @moonstream.LeafValue) -> Node {
-  { closed: true, kind: NLeaf(value) }
+  { closed: true, kind: NLeaf(value), }
 }
 
 ///|
 fn Node::pending() -> Node {
-  { closed: false, kind: NPending }
+  { closed: false, kind: NPending, }
 }

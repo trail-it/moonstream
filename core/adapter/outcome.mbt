@@ -22,7 +22,7 @@ pub fn CallUpdate::delta(
   key : @session.CallKey,
   events : Array[@moonstream.Event],
 ) -> CallUpdate {
-  { key, events, result: None, failure: None }
+  { key, events, result: None, failure: None, }
 }
 
 ///|
@@ -32,7 +32,7 @@ pub fn CallUpdate::finished(
   events : Array[@moonstream.Event],
   result : @moonstream.FinishResult,
 ) -> CallUpdate {
-  { key, events, result: Some(result), failure: None }
+  { key, events, result: Some(result), failure: None, }
 }
 
 ///|
@@ -45,7 +45,7 @@ pub fn finish_open(
   for key in session.open_calls() {
     try session.finish(key, reason~) catch {
       error =>
-        updates.push({ key, events: [], result: None, failure: Some(error) })
+        updates.push({ key, events: [], result: None, failure: Some(error), })
     } noraise {
       (events, result) =>
         updates.push(CallUpdate::finished(key, events, result))
