@@ -28,4 +28,3 @@ pub fn MizchiLlmAdapter::slot(Self, String) -> Int
 // Type aliases
 
 // Traits
-

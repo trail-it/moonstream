@@ -28,4 +28,3 @@ pub fn MoonllmAdapter::session(Self) -> @session.Session
 // Type aliases
 
 // Traits
-

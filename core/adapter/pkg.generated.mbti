@@ -31,4 +31,3 @@ pub fn CallUpdate::finished(@session.CallKey, Array[@moonstream.Event], @moonstr
 // Type aliases
 
 // Traits
-
