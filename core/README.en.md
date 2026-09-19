@@ -62,6 +62,9 @@ Compile-checked versions of the README examples live in [README.mbt.md](README.m
 | `CompletedDocument` | Opaque, parser-constructed; the document is valid under strict syntax policy |
 | `Limits` | Depth / per-token bytes / node count / total input caps |
 
+`@preview.Preview` can apply an event batch and enumerate completed leaves without treating the
+partial tree as a deliverable document.
+
 ## Guarantees
 
 - A leaf value confirmed by a syntactic boundary will not change in a final valid document.

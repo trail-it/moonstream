@@ -162,6 +162,8 @@
 - `Preview` **没有**把部分树转换成 `CompletedDocument` 的构造器；预览永远不等于可交付结果。
 - 调用方用 `node_count()` 观察保留量、用 `clear()` 丢弃整棵树、用 `children(path)` 枚举容器的
   直接子节点（UI 渲染"键名还不知道"的对象时需要它）。
+- `apply_all(events)` 按顺序投影一批事件；`completed_leaves()` 按稳定遍历顺序返回已经完成的叶值，
+  不包含 `Pending`、未闭合字符串或容器。叶值完成仍不等于整篇文档可交付。
 
 ## 13. 多调用会话（`session` 包）
 

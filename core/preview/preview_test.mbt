@@ -19,6 +19,16 @@ fn key_path(name : String) -> @moonstream.Path {
 }
 
 ///|
+fn leaf_text(value : @moonstream.LeafValue) -> String {
+  match value {
+    @moonstream.LeafValue::Null => "null"
+    @moonstream.LeafValue::Bool(value) => value.to_string()
+    @moonstream.LeafValue::Number(value) => value.lexeme()
+    @moonstream.LeafValue::String(value) => value
+  }
+}
+
+///|
 test "四种状态互不混淆" {
   let parser = @moonstream.Parser::new()
   let preview = @preview.Preview::new()
@@ -54,6 +64,28 @@ test "四种状态互不混淆" {
     "Container",
     { "kind": "Object", "closed": true },
   ])
+}
+
+///|
+test "批量投影只枚举已经完成的叶值" {
+  let parser = @moonstream.Parser::new()
+  let preview = @preview.Preview::new()
+  preview.apply_all(
+    parser.feed_text(
+      "{\"done\":1,\"nested\":{\"ok\":true},\"pending\":\"正在",
+    ),
+  )
+  let leaves = preview.completed_leaves()
+  inspect(leaves.length(), content="2")
+  inspect(leaves[0].0.to_string(), content="$.done")
+  inspect(leaf_text(leaves[0].1), content="1")
+  inspect(leaves[1].0.to_string(), content="$.nested.ok")
+  inspect(leaf_text(leaves[1].1), content="true")
+  inspect(
+    preview.lookup(key_path("pending"))
+    is @preview.NodeState::IncompleteString(_),
+    content="true",
+  )
 }
 
 ///|

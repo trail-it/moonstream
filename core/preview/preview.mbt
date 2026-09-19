@@ -124,6 +124,19 @@ pub fn Preview::apply(
 }
 
 ///|
+/// 按顺序消费一批解析事件。
+///
+/// 等价于逐个调用 `apply`；如果中途出现冲突，错误之前的事件已经生效。
+pub fn Preview::apply_all(
+  self : Preview,
+  events : ArrayView[@moonstream.Event],
+) -> Unit raise PreviewError {
+  for event in events {
+    self.apply(event)
+  }
+}
+
+///|
 /// 查询路径的当前状态。
 pub fn Preview::lookup(self : Preview, path : @moonstream.Path) -> NodeState {
   match self.find(path) {
@@ -157,6 +170,42 @@ pub fn Preview::children(
       }
   }
   out
+}
+
+///|
+/// 返回当前预览里已经完成的全部叶值，按对象插入顺序和数组下标顺序遍历。
+///
+/// `Pending`、未闭合字符串和容器自身不会出现在结果中。这里的“完成”只表示
+/// 对应叶值不会再变化，不代表整篇文档已经可以交付。
+pub fn Preview::completed_leaves(
+  self : Preview,
+) -> Array[(@moonstream.Path, @moonstream.LeafValue)] {
+  let out = []
+  match self.inner.root {
+    Some(root) => collect_completed(root, @moonstream.Path::root(), out)
+    None => ()
+  }
+  out
+}
+
+///|
+fn collect_completed(
+  node : Node,
+  path : @moonstream.Path,
+  out : Array[(@moonstream.Path, @moonstream.LeafValue)],
+) -> Unit {
+  match node.kind {
+    NObj(entries) =>
+      for key, child in entries {
+        collect_completed(child, path.child_key(key), out)
+      }
+    NArr(items) =>
+      for index, child in items {
+        collect_completed(child, path.child_index(index), out)
+      }
+    NLeaf(value) => out.push((path, value))
+    NPending | NStr(_) => ()
+  }
 }
 
 ///|

@@ -32,8 +32,10 @@ pub struct Preview {
   inner : PreviewState
 }
 pub fn Preview::apply(Self, @moonstream.Event) -> Unit raise PreviewError
+pub fn Preview::apply_all(Self, ArrayView[@moonstream.Event]) -> Unit raise PreviewError
 pub fn Preview::children(Self, @moonstream.Path) -> Array[(@moonstream.PathSegment, NodeState)]
 pub fn Preview::clear(Self) -> Unit
+pub fn Preview::completed_leaves(Self) -> Array[(@moonstream.Path, @moonstream.LeafValue)]
 pub fn Preview::is_empty(Self) -> Bool
 pub fn Preview::lookup(Self, @moonstream.Path) -> NodeState
 pub fn Preview::new() -> Self

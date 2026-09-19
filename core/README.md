@@ -77,7 +77,7 @@ ObjectEnd    $
 
 | 类型 | 含义 |
 |---|---|
-| `@preview.Preview` | 把事件投影成部分树，供 UI 逐帧渲染；没有把部分树变成 `CompletedDocument` 的构造器 |
+| `@preview.Preview` | 批量投影事件并枚举已完成叶值，供 UI 逐帧渲染；不能构造 `CompletedDocument` |
 | `@preview.NodeState` | 某路径的状态：`Missing` / `Pending` / `Container(kind, closed)` / `IncompleteString(text)` / `Complete(value)` |
 | `@session.Session` | 多 tool call 会话：按 `(response, choice, index)` 复合键把片段路由到独立解析器 |
 | `@session.CallKey` | 稳定复合键；同一键对应且只对应一个 JSON 文档 |
