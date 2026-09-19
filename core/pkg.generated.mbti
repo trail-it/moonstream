@@ -89,6 +89,7 @@ pub struct Parser {
   inner : ParserState
 }
 pub fn Parser::feed(Self, Bytes) -> Array[Event] raise ParseError
+pub fn Parser::feed_text(Self, StringView) -> Array[Event] raise ParseError
 pub fn Parser::finish(Self, reason? : EndReason) -> (Array[Event], FinishResult) raise ParseError
 pub fn Parser::is_finished(Self) -> Bool
 pub fn Parser::limits(Self) -> Limits

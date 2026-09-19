@@ -187,6 +187,38 @@ pub fn Session::feed(
 }
 
 ///|
+/// 把一段 UTF-8 文本增量交给该调用自己的解析器。
+///
+/// 适合直接接收 LLM SDK 的 `String` 参数片段；偏移仍按 UTF-8 字节计数。
+pub fn Session::feed_text(
+  self : Session,
+  key : CallKey,
+  text : StringView,
+) -> Array[@moonstream.Event] raise SessionError {
+  let entry = match self.find(key) {
+    Some(entry) => entry
+    None => raise SessionError::UnknownCall(key~)
+  }
+  match entry.state {
+    Failed(error) => raise SessionError::ParseFailed(key~, error~)
+    Finished =>
+      raise SessionError::ParseFailed(
+        key~,
+        error=@moonstream.ParseError::AlreadyFinished(op="feed_text"),
+      )
+    Open => ()
+  }
+  try entry.parser.feed_text(text) catch {
+    err => {
+      entry.state = Failed(err)
+      raise SessionError::ParseFailed(key~, error=err)
+    }
+  } noraise {
+    events => events
+  }
+}
+
+///|
 /// 结束该调用，返回它的收尾事件与结果。其它调用不受影响。
 pub fn Session::finish(
   self : Session,

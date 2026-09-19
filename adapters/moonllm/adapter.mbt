@@ -70,7 +70,7 @@ pub fn MoonllmAdapter::apply(
     self.session.open(key, id=delta.id, name=delta.name)
     match delta.arguments {
       Some(arguments) =>
-        match self.session.feed(key, @utf8.encode(arguments)) {
+        match self.session.feed_text(key, arguments) {
           [] => ()
           events => updates.push(@adapter.CallUpdate::delta(key, events))
         }

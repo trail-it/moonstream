@@ -232,6 +232,18 @@ pub fn Parser::feed(
 }
 
 ///|
+/// 消费一段 UTF-8 文本增量。
+///
+/// LLM SDK 通常以 `String` 交付参数片段；此入口负责 UTF-8 编码，并保持与
+/// `feed(Bytes)` 完全相同的字节偏移、事件与资源限制语义。
+pub fn Parser::feed_text(
+  self : Parser,
+  text : StringView,
+) -> Array[Event] raise ParseError {
+  self.feed(@utf8.encode(text))
+}
+
+///|
 /// `feed` 的实际实现；任何抛出都由 `feed` 统一转为终止状态。
 fn Parser::feed_inner(
   self : Parser,

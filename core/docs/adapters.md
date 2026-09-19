@@ -33,7 +33,7 @@ AdapterOutcome::updates() 返回 Array[CallUpdate]。每条更新包含：
 
 1. 根据 SDK 的 id / index 建立 CallKey，响应和 choice 的命名空间由应用提供。
 2. 使用 session.open(key, id=Some(id), name=Some(name)) 注册元数据。
-3. 使用 session.feed(key, @utf8.encode(fragment))，将返回事件包装为 CallUpdate::delta。
+3. 使用 `session.feed_text(key, fragment)`，将 SDK 的文本增量直接送入解析器，再把返回事件包装为 `CallUpdate::delta`。
 4. 收到可靠终止原因后调用 @adapter.finish_open(session, reason)，保留全部更新。
 
 具体可编译实现与真实 SDK 类型测试见仓库的 adapters/llm_mb、adapters/mizchi_llm、adapters/moonllm。

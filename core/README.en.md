@@ -54,7 +54,7 @@ Compile-checked versions of the README examples live in [README.mbt.md](README.m
 
 | Type | Meaning |
 |---|---|
-| `Parser` | Incremental parser for one JSON document: `feed(Bytes)`, `finish(EndReason)` |
+| `Parser` | Incremental parser for one JSON document: `feed(Bytes)` or `feed_text(StringView)`, then `finish(EndReason)` |
 | `Event` | `ObjectBegin/End`, `ArrayBegin/End`, `KeyComplete`, `StringDelta`, `ValueComplete` |
 | `Path` | Position such as `$.items[0].name`; it describes location, not validity |
 | `Span` | Absolute byte range, independent of chunking |

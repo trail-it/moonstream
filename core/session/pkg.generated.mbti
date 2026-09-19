@@ -34,6 +34,7 @@ pub fn Session::call_name(Self, CallKey) -> String?
 pub fn Session::calls(Self) -> Array[CallKey]
 pub fn Session::failure(Self, CallKey) -> @moonstream.ParseError?
 pub fn Session::feed(Self, CallKey, Bytes) -> Array[@moonstream.Event] raise SessionError
+pub fn Session::feed_text(Self, CallKey, StringView) -> Array[@moonstream.Event] raise SessionError
 pub fn Session::finish(Self, CallKey, reason? : @moonstream.EndReason) -> (Array[@moonstream.Event], @moonstream.FinishResult) raise SessionError
 pub fn Session::is_failed(Self, CallKey) -> Bool
 pub fn Session::is_finished(Self, CallKey) -> Bool

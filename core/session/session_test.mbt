@@ -37,6 +37,18 @@ test "两个调用的参数片段交错到达互不干扰" {
 }
 
 ///|
+test "Session::feed_text 直接路由 SDK 字符串片段" {
+  let session = @session.Session::new()
+  let key = call_key(0)
+  session.open(key, id=Some("call_text"), name=Some("create_ticket"))
+  let _ = session.feed_text(key, "{\"title\":\"登")
+  let _ = session.feed_text(key, "录失败\"}")
+  debug_inspect(session.offset(key), content="Some(24)")
+  let (_, result) = session.finish(key)
+  inspect(document_of(result), content="{\"title\":\"登录失败\"}")
+}
+
+///|
 test "不同 choice 或不同 response 的相同 index 是不同调用" {
   let session = @session.Session::new()
   let a = @session.CallKey::new(response="resp-1", choice=0, index=0)

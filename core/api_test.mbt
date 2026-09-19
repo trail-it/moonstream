@@ -27,6 +27,19 @@ test "Parser::is_finished 反映终止状态" {
 }
 
 ///|
+test "Parser::feed_text 直接消费 SDK 文本片段且偏移按 UTF-8 字节计" {
+  let parser = @moonstream.Parser::new()
+  let first = parser.feed_text("{\"city\":\"上")
+  inspect(first.length() > 0, content="true")
+  inspect(parser.offset(), content="12")
+  let _ = parser.feed_text("海\"}")
+  let (_, result) = parser.finish()
+  let doc = expect_completed(result)
+  inspect(doc.to_string(), content="{\"city\":\"上海\"}")
+  inspect(doc.byte_length(), content="17")
+}
+
+///|
 test "解析错误后 Parser::is_finished 也为真" {
   let parser = @moonstream.Parser::new()
   let failed = try {

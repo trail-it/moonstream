@@ -65,7 +65,7 @@ ObjectEnd    $
 
 | 类型 | 含义 |
 |---|---|
-| `Parser` | 单个 JSON 文档的增量解析器；`feed(Bytes)` 消费片段，`finish(EndReason)` 判定完整性 |
+| `Parser` | 单个 JSON 文档的增量解析器；`feed(Bytes)` 或 `feed_text(StringView)` 消费片段，`finish(EndReason)` 判定完整性 |
 | `Event` | 结构事件：容器开始/结束、键完成、字符串增量、叶值完成 |
 | `Path` | 文档内位置，如 `$.items[0].name`；只描述位置，不承诺值合法 |
 | `Span` | 绝对字节区间；与分块方式无关 |

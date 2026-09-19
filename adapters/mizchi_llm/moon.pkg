@@ -3,7 +3,6 @@ import {
   "trail-it/moonstream/session",
   "trail-it/moonstream/adapter",
   "mizchi/llm" @sdk,
-  "moonbitlang/core/encoding/utf8",
 }
 
 import {

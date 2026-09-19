@@ -7,5 +7,4 @@ import {
   "trail-it/moonstream/session",
   "trail-it/moonstream/adapter",
   "DC-Z-lab/moonllm" @sdk,
-  "moonbitlang/core/encoding/utf8",
 }

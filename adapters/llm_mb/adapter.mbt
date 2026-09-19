@@ -68,7 +68,7 @@ pub fn LlmMbAdapter::apply(
     @llm.StreamEvent::ToolCallDelta(content_index~, delta~) =>
       delta_outcome(
         self.key(content_index),
-        self.session.feed(self.key(content_index), @utf8.encode(delta)),
+        self.session.feed_text(self.key(content_index), delta),
       )
     @llm.StreamEvent::ToolCallEnd(..) => @adapter.AdapterOutcome::Ignored
     @llm.StreamEvent::Done(stop~, ..) => self.finish_open(stop.end_reason())

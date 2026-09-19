@@ -74,7 +74,7 @@ pub fn MizchiLlmAdapter::apply(
     @sdk.StreamEvent::ToolCallDelta(id~, input_delta~) => {
       let key = self.key(self.slot(id))
       self.session.open(key, id=Some(id))
-      let events = self.session.feed(key, @utf8.encode(input_delta))
+      let events = self.session.feed_text(key, input_delta)
       if events.is_empty() {
         @adapter.AdapterOutcome::Ignored
       } else {
